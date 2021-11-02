@@ -1,0 +1,15 @@
+name: 'gha-setup-nuget'
+description: 'Sets up nuget credentials for vcpkg binarycaching.'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup NuGet Credentials
+      shell: bash
+      run: >
+        nuget sources add
+        -source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+        -storepasswordincleartext
+        -name "GitHub"
+        -username "${{ github.repository_owner }}"
+        -password "${{ github.token }}"
